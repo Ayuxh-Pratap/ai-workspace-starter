@@ -125,7 +125,7 @@ export function AppearanceSettings({ user }: { user: User }) {
                   <Select.Trigger className='w-full text-paragraph-sm text-text-sub-600 lg:w-auto'>
                     <Select.Value placeholder={String(value)} />
                   </Select.Trigger>
-                  <Select.Content className='z-62'>
+                  <Select.Content>
                     {item.options.map((option) => (
                       <Select.Item key={option.value} value={option.value}>
                         {option.label}

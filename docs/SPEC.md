@@ -77,6 +77,8 @@ e2e/                         end-to-end tests at the five reference sizes
    ring-free `shadow-raised-xs/sm/md`; a state that clears the shadow clears the ring too (`hover:ring-0`). AlignUI's
    ring-baked shadows (`shadow-complex`, `-custom-input`, `-gray-shadow`…) are re-themed in `.dark`, but Tailwind
    inlines their light value, so their edge vanishes in dark mode: `npm run design:check` rejects them in app code.
+   **Layers:** app chrome stays at `z-40` or below; `z-50` is AlignUI's popup layer (dialogs, menus, selects,
+   tooltips). `npm run design:check` rejects `z-50`+ in app code.
 4. **DESIGN.md first.** To change a token, change DESIGN.md, then the CSS (`template.css`, or regenerate the AlignUI
    file); `npm run design:check` must pass. To add a component pattern, add it to DESIGN.md's `components`.
 5. **Server first.** Pages and layouts are Server Components that read data from `@/lib/data`; `'use client'` only

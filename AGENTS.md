@@ -27,12 +27,14 @@ similar screen. Then:
 - **Edges and depth:** a raised surface is `ring-1 ring-stroke-edge` plus `shadow-raised-xs|sm|md`. Never AlignUI's
   `shadow-complex*`, `-custom-input`, `-gray-shadow*` in app code (their edge vanishes in dark). A state that drops
   the shadow drops the ring too (`hover:ring-0`).
+- **Layers:** app chrome at `z-40` or below; `z-50` is AlignUI's popup layer. Sheets below `lg` dock with
+  `justify-end` on the overlay.
 - **Variables in classes:** Tailwind v4 spelling `w-(--x)` / `[mask:var(--x)]`; the v3 `w-[--x]` is silently dropped.
 - **Layout:** one breakpoint, `lg:`, in CSS; works at any width, not just the ones in the tests.
 - **Vendor:** compose `src/components/ui` components, don't edit them (a new copy from the AlignUI docs: check it for
   v3 spellings).
 - **Check in both themes** (profile menu → Dark Mode) before calling it done.
 
-`npm run design:check` enforces the colour, shadow and variable rules.
+`npm run design:check` enforces the colour, shadow, layer and variable rules.
 
 Before finishing: `npm run check`, `npm run build`, `npm run test:e2e`.

@@ -138,6 +138,13 @@ for (const file of appFiles('src')) {
             'use shadow-raised-* with ring-1 ring-stroke-edge',
         );
       }
+      // Layers (DESIGN.md → Elevation & Depth): z-50 and up belongs to AlignUI's portals (menus, dialogs, popovers,
+      // selects, tooltips). App chrome above it hides them, as the mobile drawer once hid the profile menu.
+      for (const m of line.matchAll(/(?<![\w-])z-(?:[5-9]\d|\d{3,}|\[\d+\])(?![\w-])/g)) {
+        problems.push(
+          `${file.replaceAll('\\', '/')}:${i + 1}: ${m[0]} is in the popup layer (50+); app layers stay at z-40 or below`,
+        );
+      }
     });
 }
 

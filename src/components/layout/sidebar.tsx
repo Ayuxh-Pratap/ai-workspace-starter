@@ -35,7 +35,7 @@ export function Sidebar({ user, pinned, history }: SidebarData) {
     <Tooltip.Provider delayDuration={300}>
       <div
         className={cn(
-          'fixed z-60 h-full bg-bg-white-0 transition-all duration-300 ease-in-out motion-reduce:transition-none lg:relative lg:z-50 lg:translate-x-0',
+          'fixed z-40 h-full bg-bg-white-0 transition-all duration-300 ease-in-out motion-reduce:transition-none lg:relative lg:translate-x-0',
           mobileOpen ? 'translate-x-0' : '-translate-x-full',
           collapsed ? 'w-sidebar-rail' : 'w-full lg:w-sidebar',
         )}

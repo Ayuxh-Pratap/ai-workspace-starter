@@ -48,7 +48,7 @@ export function ProjectDetail({ project, chats, empty }: { project: Project; cha
   return (
     <div className='flex h-full flex-col lg:p-1.5 lg:pl-0'>
       <div className='flex h-full w-full [scrollbar-width:none] flex-col overflow-auto bg-bg-white-0 px-5 py-7 lg:rounded-3xl lg:border lg:border-stroke-soft-200 lg:p-5'>
-        <div className='fixed top-0 left-0 z-61 flex w-full items-center justify-between border-b border-stroke-soft-200 bg-bg-white-0 p-5 lg:relative lg:mb-8 lg:border-b-0 lg:p-0'>
+        <div className='fixed top-0 left-0 z-30 flex w-full items-center justify-between border-b border-stroke-soft-200 bg-bg-white-0 p-5 lg:relative lg:mb-8 lg:border-b-0 lg:p-0'>
           <Link
             href='/projects'
             className='group flex items-center gap-2 rounded-md text-label-sm tracking-spacing-tiny-2 text-text-sub-600'
@@ -266,7 +266,7 @@ function InstructionsModal({
       }}
     >
       <Modal.Content
-        overlayClassName='items-end p-0 lg:items-center lg:p-4'
+        overlayClassName='justify-end p-0 lg:justify-center lg:p-4'
         className='flex max-w-none flex-col gap-5 rounded-t-3xl rounded-b-none p-5 shadow-raised-md ring-1 ring-stroke-edge lg:max-w-175 lg:rounded-[28px] lg:px-6'
       >
         <div className='flex flex-col gap-1 pr-8'>

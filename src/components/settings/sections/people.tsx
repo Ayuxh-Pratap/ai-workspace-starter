@@ -142,7 +142,7 @@ export function PeopleSettings({ user }: { user: User }) {
             <Select.Trigger className='w-auto text-paragraph-sm text-text-sub-600'>
               <Select.Value placeholder='All roles' />
             </Select.Trigger>
-            <Select.Content className='z-62'>
+            <Select.Content>
               {filterOptions.map((option) => (
                 <Select.Item key={option.value} value={option.value}>
                   <Select.ItemIcon as={Avatar.Root} size='20' color={option.color} />

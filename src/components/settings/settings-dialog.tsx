@@ -55,7 +55,7 @@ export function SettingsDialog({ user }: { user: User }) {
       <Modal.Content
         showClose={false}
         aria-describedby={undefined}
-        overlayClassName='z-62 items-end bg-overlay-gray p-0 backdrop-blur-none duration-300 lg:items-center lg:p-4'
+        overlayClassName='justify-end bg-overlay-gray p-0 backdrop-blur-none duration-300 lg:justify-center lg:p-4'
         className={cn(
           'flex h-dvh max-w-none items-end overflow-hidden rounded-none bg-transparent shadow-none duration-300',
           'max-lg:data-[state=closed]:zoom-out-100 max-lg:data-[state=closed]:slide-out-to-bottom max-lg:data-[state=open]:zoom-in-100 max-lg:data-[state=open]:slide-in-from-bottom',

@@ -122,7 +122,7 @@ export function PlansSettings({ user }: { user: User }) {
               <Select.Trigger className='w-auto text-paragraph-sm text-text-sub-600'>
                 <Select.Value placeholder='All status' />
               </Select.Trigger>
-              <Select.Content className='z-62'>
+              <Select.Content>
                 {statusOptions.map((option) => (
                   <Select.Item key={option.value} value={option.value}>
                     {option.label}

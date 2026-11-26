@@ -351,6 +351,14 @@ Don't use AlignUI's ring-baked shadows (`shadow-complex`, `shadow-custom-input`,
 Tailwind writes their light value into the class, so their edge disappears in dark mode. `npm run design:check`
 rejects them.
 
+**Layers.** Stacking has two bands. App chrome stays at `z-40` or below: sticky bars `z-10`–`z-30`, the mobile
+drawer `z-40`. `z-50` belongs to AlignUI's portals (dialogs, menus, popovers, selects, tooltips), which open last in
+the DOM and so stack in the order they open. Never lift app chrome into that band to win a fight: it hides every
+popup opened from inside it. `npm run design:check` rejects `z-50` and up in app code.
+
+**Bottom sheets.** Below `lg`, dialogs are sheets docked to the bottom edge (`justify-end` on the overlay, which is a
+flex column, so `items-end` would push it right, not down) with rounded top corners; at `lg` they center.
+
 ## Shapes
 
 Rounded, never pill-shaped except avatars and toggles. Rows and small buttons `rounded.lg` (8px), fields

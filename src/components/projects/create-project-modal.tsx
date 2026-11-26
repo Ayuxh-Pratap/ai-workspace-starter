@@ -26,7 +26,7 @@ export function CreateProjectModal({
   return (
     <Modal.Root open={open} onOpenChange={(o) => (o ? onOpenChange(true) : close())}>
       <Modal.Content
-        overlayClassName='items-end p-0 lg:items-center lg:p-4'
+        overlayClassName='justify-end p-0 lg:justify-center lg:p-4'
         className='max-w-none rounded-t-3xl rounded-b-none shadow-raised-md ring-1 ring-stroke-edge lg:max-w-137 lg:rounded-[28px] lg:p-5'
       >
         <div className='flex items-center justify-between p-5 pb-0 lg:p-0'>
