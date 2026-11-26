@@ -1,0 +1,66 @@
+/*
+ * Tokens the AI template adds on top of AlignUI v1.2 (read from the reference stylesheet).
+ * Everything else comes from the AlignUI file (src/app/globals.css). Values are mirrored in DESIGN.md.
+ */
+@theme {
+  /* Inter, loaded by next/font in src/app/layout.tsx as --font-inter */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* letter-spacing steps used for UI text (the reference's tiny-4 had no unit; em assumed) */
+  --tracking-spacing-tiny: 0.014em;
+  --tracking-spacing-tiny-1: -0.017em;
+  --tracking-spacing-tiny-2: -0.005em;
+  --tracking-spacing-tiny-3: -0.009em;
+  --tracking-spacing-tiny-4: -0.011em;
+
+  /* focused input / composer: soft drop plus a 1.4px primary ring */
+  --shadow-gray-shadow-2:
+    0 6px 6px -3px rgba(23, 23, 23, 0.02), 0 3px 3px -1.5px rgba(23, 23, 23, 0.04),
+    0 1px 1px -0.5px rgba(23, 23, 23, 0.04), 0 0 0 1.4px var(--color-primary-base);
+  --shadow-complex-3:
+    0 6px 6px -3px rgba(23, 23, 23, 0.02), 0 3px 3px -1.5px rgba(23, 23, 23, 0.04),
+    0 1px 1px -0.5px rgba(23, 23, 23, 0.04), 0 0 0 1.4px var(--color-primary-base);
+
+  /*
+   * A raised surface's 1px edge (ring-1 ring-stroke-edge): the template's hairline, 8% black, so over white it is
+   * #ebebeb and over the dialog backdrop it darkens with it, exactly as the template's shadow ring does. Colour tokens
+   * stay CSS variables in Tailwind v4, so the .dark value below applies at runtime.
+   */
+  --color-stroke-edge: #17171714;
+
+  /*
+   * Elevation without an edge. The template's shadow-custom-input / -complex-2 / -complex each end in a 1px hairline
+   * ring (rgba 8% black in light, #262626 in dark). Here the edge is drawn separately (ring-1 ring-stroke-edge), so
+   * these keep only the soft drop layers. Their colours are the --shadow-drop-* variables below
+   * (Tailwind writes a theme shadow's value into its utility, but a var() inside it is resolved by the browser), so
+   * in dark mode they go transparent, as the template's dark values do.
+   */
+  --shadow-raised-xs: 0 3px 3px -1.5px var(--shadow-drop-4), 0 1px 1px -0.5px var(--shadow-drop-4);
+  --shadow-raised-sm:
+    0 10px 10px -5px var(--shadow-drop-2), 0 6px 6px -3px var(--shadow-drop-4), 0 3px 3px -1.5px var(--shadow-drop-4),
+    0 1px 1px -0.5px var(--shadow-drop-4);
+  --shadow-raised-md:
+    0 20px 20px -10px var(--shadow-drop-4), 0 10px 10px -5px var(--shadow-drop-4), 0 6px 6px -3px var(--shadow-drop-4),
+    0 3px 3px -1.5px var(--shadow-drop-4), 0 1px 1px -0.5px var(--shadow-drop-4),
+    0 -1px 1px -0.5px var(--shadow-drop-6) inset;
+
+  /* shell geometry (DESIGN.md Layout) */
+  --spacing-sidebar: 17rem; /* 272px */
+  --spacing-sidebar-rail: 4.5rem; /* 72px */
+  --spacing-composer: 43.75rem; /* 700px */
+}
+
+/* drop-layer colours of the shadow-raised-* tokens (2, 4, 6% of #171717); not colour utilities, so not in @theme */
+:root {
+  --shadow-drop-2: rgba(23, 23, 23, 0.02);
+  --shadow-drop-4: rgba(23, 23, 23, 0.04);
+  --shadow-drop-6: rgba(23, 23, 23, 0.06);
+}
+
+/* dark: the hairline becomes the dark stroke; the drops go transparent except the inset, as in the template */
+.dark {
+  --color-stroke-edge: var(--color-stroke-soft-200);
+  --shadow-drop-2: rgba(23, 23, 23, 0);
+  --shadow-drop-4: rgba(23, 23, 23, 0);
+  --shadow-drop-6: rgba(23, 23, 23, 0.04);
+}
