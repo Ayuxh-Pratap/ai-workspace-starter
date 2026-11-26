@@ -1,0 +1,13 @@
+.next
+node_modules
+package-lock.json
+playwright-report
+test-results
+# AlignUI vendor code and the CLI's token file stay as published
+src/components/ui
+src/app/globals.css
+src/utils/cn.ts
+src/utils/tv.ts
+src/utils/polymorphic.ts
+src/utils/recursive-clone-children.tsx
+src/hooks/use-tab-observer.ts
