@@ -14,7 +14,10 @@ Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · AlignUI components · 
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8?logo=tailwindcss&logoColor=white)
 
-[Features](#features) · [Quick start](#quick-start) · [Design system](#the-design-system) ·
+<a href="https://ai-workspace-starter.vercel.app"><img src="https://img.shields.io/badge/Live_demo-ai--workspace--starter.vercel.app-1daf61?style=for-the-badge&logo=vercel&logoColor=white" alt="Live demo" /></a>
+<a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FAyuxh-Pratap%2Fai-workspace-starter&project-name=ai-workspace-starter&repository-name=ai-workspace-starter"><img src="https://vercel.com/button" alt="Deploy with Vercel" height="28" /></a>
+
+[Live demo](https://ai-workspace-starter.vercel.app) · [Features](#features) · [Quick start](#quick-start) · [Design system](#the-design-system) ·
 [Structure](#project-structure) · [Testing](#quality-and-testing) · [Contributing](./CONTRIBUTING.md)
 
 <br />
@@ -86,7 +89,7 @@ npm install
 npm run dev
 ```
 
-Open <http://localhost:3000>. Optionally copy `.env.example` to `.env.local` to set the public URL.
+Open <http://localhost:3000>, or try the [live demo](https://ai-workspace-starter.vercel.app) first. Optionally copy `.env.example` to `.env.local` to set the public URL.
 
 ### Make it yours
 
@@ -97,6 +100,11 @@ Open <http://localhost:3000>. Optionally copy `.env.example` to `.env.local` to 
    placeholder.
 4. **Brand:** change the tokens in `DESIGN.md`, then the CSS (see [Changing the design](#changing-the-design)).
    The mark is `src/components/brand/logo.tsx` and `src/app/icon.svg`.
+
+### Deploy
+
+Use the **Deploy with Vercel** button above, or import the repo in Vercel. No environment variables are required:
+on Vercel the public URL defaults to the production domain. Any Node host works with `npm run build && npm start`.
 
 ## Tech stack
 
