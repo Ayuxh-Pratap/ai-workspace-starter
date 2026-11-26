@@ -8,6 +8,21 @@ import { expect, sizes, test } from './fixtures';
 
 test.use({ permissions: ['clipboard-read', 'clipboard-write'] });
 
+/** The settings sections, in navigation order (src/config/settings.ts → settingsSectionIds). */
+const settingsSections = [
+  'workspace',
+  'people',
+  'plans',
+  'profile',
+  'preferences',
+  'appearance',
+  'security',
+  'privacy',
+  'ai',
+  'integrations',
+  'advanced',
+] as const;
+
 /** The open Radix popper content (menu, popover, select listbox) that appeared last. */
 const popup = (page: Page) => page.locator('[data-radix-popper-content-wrapper] > *').last();
 
@@ -121,18 +136,47 @@ for (const [name, viewport] of Object.entries(sizes)) {
       await expectDialog(page, page.getByRole('dialog').last(), viewport.width);
     });
 
-    test('settings: every section and every control in it', async ({ page }) => {
+    test('settings: navigate between sections, back and close', async ({ page }) => {
       await page.goto('/?settings=workspace');
       const dialog = page.getByRole('dialog').last();
       await expectDialog(page, dialog, viewport.width);
-      const items = dialog.getByRole('navigation', { name: 'Settings' }).getByRole('listitem');
-      const count = await items.count();
-      expect(count).toBe(11);
-      for (let i = 0; i < count; i++) {
-        const back = dialog.getByRole('button', { name: 'Back to settings' }).filter({ visible: true });
-        if (await back.count()) await back.click();
-        await items.nth(i).getByRole('button').click();
-        await expect(page).toHaveURL(/\?settings=[a-z]+$/);
+      const nav = dialog.getByRole('navigation', { name: 'Settings' });
+      await expect(nav.getByRole('listitem')).toHaveCount(settingsSections.length);
+      const back = dialog.getByRole('button', { name: 'Back to settings' }).filter({ visible: true });
+
+      await nav.getByRole('button', { name: 'Appearance' }).click();
+      await expect(page).toHaveURL(/\?settings=appearance$/);
+      await expect(dialog.getByRole('heading', { name: 'Appearance', exact: true })).toBeInViewport();
+      // below lg the section panel's X goes back to the navigation, which holds the dialog's close button
+      if (!desktop) {
+        await back.click();
+        await expect(back).toHaveCount(0);
+      }
+      await nav.getByRole('button', { name: 'Security' }).click();
+      await expect(page).toHaveURL(/\?settings=security$/);
+      if (!desktop) await back.click();
+      await dialog.getByRole('button', { name: 'Close settings' }).filter({ visible: true }).last().click();
+      await expect(dialog).toBeHidden();
+      await expect(page).toHaveURL(/\/$/);
+    });
+
+    // one test per section, opened from its URL, so each gets its own time budget
+    for (const section of settingsSections) {
+      test(`settings › ${section}: every control works and its popups are on top`, async ({ page }) => {
+        await page.goto(`/?settings=${section}`);
+        const dialog = page.getByRole('dialog').last();
+        await expect(dialog).toBeVisible();
+        // the workspace section is the default: below lg the dialog opens on the navigation, so pick it there
+        if (section === 'workspace' && !desktop) {
+          await dialog.getByRole('navigation', { name: 'Settings' }).getByRole('button').first().click();
+        }
+        await expect(
+          dialog
+            .getByRole('button', { name: 'Back to settings' })
+            .or(dialog.getByRole('button', { name: 'Close settings' }))
+            .filter({ visible: true })
+            .first(),
+        ).toBeVisible();
 
         const switches = dialog.getByRole('switch').filter({ visible: true });
         for (let s = 0; s < (await switches.count()); s++) {
@@ -146,7 +190,10 @@ for (const [name, viewport] of Object.entries(sizes)) {
           await selects.nth(s).click();
           const list = popup(page);
           await expectOnTop(list);
-          await closeWithEscape(page, list);
+          // choose an option rather than pressing Escape: an Escape that lands after the list closed would close
+          // the whole dialog
+          await list.getByRole('option').last().click();
+          await expect(list).toBeHidden();
           await expect(dialog).toBeVisible();
         }
         const radios = dialog.getByRole('radio').filter({ visible: true });
@@ -154,13 +201,8 @@ for (const [name, viewport] of Object.entries(sizes)) {
           await radios.nth(1).click();
           await expect(radios.nth(1)).toBeChecked();
         }
-      }
-      // below lg the section panel's X goes back to the navigation, which holds the dialog's close button
-      const back = dialog.getByRole('button', { name: 'Back to settings' }).filter({ visible: true });
-      if (await back.count()) await back.click();
-      await dialog.getByRole('button', { name: 'Close settings' }).filter({ visible: true }).last().click();
-      await expect(dialog).toBeHidden();
-    });
+      });
+    }
 
     test('composer: tools menu, model picker, send', async ({ page }) => {
       await page.goto('/');
