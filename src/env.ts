@@ -8,6 +8,10 @@ const schema = z.object({
   NEXT_PUBLIC_APP_URL: z.url().default('http://localhost:3000'),
 });
 
+// On Vercel, fall back to the production domain it exposes, so absolute URLs (Open Graph images) never point at
+// localhost when NEXT_PUBLIC_APP_URL is not set.
+const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+
 export const env = schema.parse({
-  NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+  NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || (vercelUrl ? `https://${vercelUrl}` : undefined),
 });
