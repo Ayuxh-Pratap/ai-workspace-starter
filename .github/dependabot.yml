@@ -7,6 +7,15 @@ updates:
     groups:
       minor-and-patch:
         update-types: [minor, patch]
+    ignore:
+      # AlignUI's tv.ts uses the 3.x twMergeConfig option (docs/SPEC.md, rule 2)
+      - dependency-name: tailwind-variants
+        update-types: [version-update:semver-major]
+      # major TypeScript and Node type upgrades are done by hand, with the Node version in .nvmrc
+      - dependency-name: typescript
+        update-types: [version-update:semver-major]
+      - dependency-name: '@types/node'
+        update-types: [version-update:semver-major]
   - package-ecosystem: github-actions
     directory: /
     schedule:
